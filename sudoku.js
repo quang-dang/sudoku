@@ -21,7 +21,7 @@ function getBoard(){
     window.clearInterval(setTimer);
     document.getElementById("actions").classList.add("pending");
     var level = document.getElementById("level").value;
-    if (level == null || level != 1 || level != 2 || level != 3){
+    if (level == null || (level != 1 && level != 2 && level != 3)){
         level = 1
     }
     var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
