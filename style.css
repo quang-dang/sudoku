@@ -98,11 +98,12 @@ html, body {
     background-color: lightgray;
     border: lightgray;
   }
-  select{
-    margin-top: 0.3em;
-  }
 
   .pending{
     cursor: wait;
     pointer-events: none;
+  }
+
+  .levels, .newGame, .clearBoard{
+    margin: 0.5em;
   }
