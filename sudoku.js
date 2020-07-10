@@ -15,7 +15,7 @@ function displayTimer(){
 }
 
 function getBoard(){
-
+    document.getElementById("overlay").style.display = "block";
     document.getElementById("submitButton").setAttribute("disabled", "");
     document.getElementById("clearButton").setAttribute("disabled", "");
     window.clearInterval(setTimer);
@@ -96,6 +96,7 @@ function setUpBoard(){
     document.getElementById("submitButton").removeAttribute("disabled");
     document.getElementById("clearButton").removeAttribute("disabled");
     document.getElementById("actions").classList.remove("pending");
+    document.getElementById("overlay").style.display = "none";
     setTimer = window.setInterval(displayTimer,1000);
 }
 
@@ -223,6 +224,13 @@ function check(){
         document.getElementById("score").style.color = "green";
         document.getElementById("submitButton").setAttribute("disabled", "");
         document.getElementById("clearButton").setAttribute("disabled", "");
+        for (var r = 0; r < 9; r++){
+            for (var c = 0; c < 9; c++){
+                cl = "row-" + r + " col-"+c;
+                el = document.getElementsByClassName(cl)[0];
+                el.setAttribute("disabled","");
+            }
+        }
     }
 }
 
