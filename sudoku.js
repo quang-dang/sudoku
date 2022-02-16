@@ -24,11 +24,17 @@ function getBoard(){
     if (level == null || (level != 1 && level != 2 && level != 3)){
         level = 1
     }
-    var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    var targetUrl = "http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=";
-    fetch(proxyUrl+targetUrl+level)
-        .then(blob => blob.json())
-        .then(response => createBoard(response["squares"]))
+    var difficulty = "easy";
+    if (level == 2) {
+        difficulty = "medium";
+    } else if (level == 3) {
+        difficulty = "hard";
+    }
+    var newUrl = "https://sugoku.herokuapp.com/board?difficulty="+difficulty;
+    console.log(newUrl);
+    fetch(newUrl)
+        .then(response => response.json())
+        .then(data => {console.log(data["board"]); createBoard(data["board"]);})
         .catch( () => {
             var board = [[3,0,6,5,0,8,4,0,0],[5,2,0,0,0,0,0,0,0],[0,8,7,0,0,0,0,3,1],[0,0,3,0,1,0,0,8,0],
                             [9,0,0,8,6,3,0,0,5],[0,5,0,0,9,0,6,0,0],[1,3,0,0,0,0,2,5,0],[0,0,0,0,0,0,0,7,4],[0,0,5,2,0,6,3,0,0]];
@@ -38,17 +44,7 @@ function getBoard(){
 }
 
 function createBoard(squares){
-    const board = new Array(9);
-    for (var i = 0; i < 9; i++){
-        board[i] = new Array(9).fill(0);
-    }
-    for (var i = 0; i < squares.length; i++){
-        c = squares[i]["x"];
-        r = squares[i]["y"];
-        v = squares[i]["value"];
-        board[r][c] = v;
-    }
-    window.localStorage.setItem("board",JSON.stringify(board));
+    window.localStorage.setItem("board",JSON.stringify(squares));
     setUpBoard();
 }
 
@@ -97,7 +93,7 @@ function setUpBoard(){
     document.getElementById("clearButton").removeAttribute("disabled");
     document.getElementById("actions").classList.remove("pending");
     document.getElementById("overlay").style.display = "none";
-    setTimer = window.setInterval(displayTimer,1000);
+    setTimer = window.setInterval(displayTimer,1);
 }
 
 function highlight(element){
