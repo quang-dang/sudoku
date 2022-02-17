@@ -93,7 +93,7 @@ function setUpBoard(){
     document.getElementById("clearButton").removeAttribute("disabled");
     document.getElementById("actions").classList.remove("pending");
     document.getElementById("overlay").style.display = "none";
-    setTimer = window.setInterval(displayTimer,1);
+    setTimer = window.setInterval(displayTimer,1000);
 }
 
 function highlight(element){
